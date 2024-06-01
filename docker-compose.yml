@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  my-app: # サービス名
+    build:
+      context: .
+      dockerfile: my-app/Dockerfile
+    container_name: my-app
+    volumes:
+      - ./:/workspace # ホストポートとコンテナのvolumeのマッピング
+      - app-node_modules:/workspace/my-app/node_modules
+      - ~/.ssh/:/root/.ssh/:ro
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    ports:
+      - "8080:8080" # ホストポートとコンテナのポートのマッピング
+    tty: true 
+    stdin_open: true
+
+volumes:
+  app-node_modules:
